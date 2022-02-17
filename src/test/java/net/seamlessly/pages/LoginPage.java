@@ -1,5 +1,6 @@
 package net.seamlessly.pages;
 
+import net.seamlessly.utilities.ConfigurationReader;
 import net.seamlessly.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,4 +17,16 @@ public class LoginPage {
 
     @FindBy(id = "submit-form")
     public WebElement loginButton;
+
+    @FindBy(css = "[class='warning wrongPasswordMsg']")
+    public WebElement message;
+
+    public void login(){
+        String userName= ConfigurationReader.get("username");
+        String password=ConfigurationReader.get("password");
+        Driver.get().get(ConfigurationReader.get("url"));
+        usernameInput.sendKeys(userName);
+        passwordInput.sendKeys(password);
+        loginButton.click();
+    }
 }

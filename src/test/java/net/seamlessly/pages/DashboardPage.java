@@ -9,4 +9,7 @@ public class DashboardPage extends BasePage{
 
     @FindBy(css = "[class='user-status-menu-item__header']")
     public WebElement usernameTitle;
+
+    @FindBy(css = "[data-id='logout']")
+    public WebElement logoutButton;
 }

@@ -1,5 +1,6 @@
 package net.seamlessly.stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,6 +10,7 @@ import net.seamlessly.utilities.BrowserUtils;
 import net.seamlessly.utilities.ConfigurationReader;
 import net.seamlessly.utilities.Driver;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 
 import java.util.Map;
 
@@ -48,5 +50,22 @@ public class LoginStepDefs {
         expectedUsername=ConfigurationReader.get("username");
         String actualUsername=dashboardPage.usernameTitle.getText();
         Assert.assertEquals("Verify username title",expectedUsername,actualUsername);
+    }
+
+    @And("Press Enter button on keyboard")
+    public void pressEnterButtonOnKeyboard() {
+        loginPage.loginButton.sendKeys(Keys.ENTER);
+    }
+
+    @Then("Verify {string} massage is displayed")
+    public void verifyMassageIsDisplayed(String message) {
+        String actuallMessage=loginPage.message.getText();
+        System.out.println("actuallMessage = " + actuallMessage);
+        Assert.assertTrue(loginPage.message.isDisplayed());
+    }
+
+    @Given("the user logged in")
+    public void the_user_logged_in() {
+        new LoginPage().login();
     }
 }
