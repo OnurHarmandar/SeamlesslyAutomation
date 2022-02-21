@@ -21,6 +21,19 @@ public class LoginPage {
     @FindBy(css = "[class='warning wrongPasswordMsg']")
     public WebElement message;
 
+    @FindBy(linkText = "Forgot password?")
+    public WebElement forgotButton;
+
+    @FindBy(id = "user")
+    public WebElement userEmail;
+
+    @FindBy(id = "reset-password-submit")
+    public WebElement resetBUtton;
+
+    @FindBy(className = "update")
+    public WebElement resetMessage;
+
+
     public void login(){
         String userName= ConfigurationReader.get("username");
         String password=ConfigurationReader.get("password");

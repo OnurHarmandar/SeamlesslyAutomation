@@ -68,4 +68,76 @@ public class LoginStepDefs {
     public void the_user_logged_in() {
         new LoginPage().login();
     }
+    @Given("the user clicks on Forgot password? button")
+    public void theUserClicksOnForgotPasswordButton() {
+        loginPage.forgotButton.click();
+        BrowserUtils.waitFor(2);
+    }
+
+
+    @When("the user enters {string} email to user email input box")
+    public void the_user_enters_email_to_user_email_input_box(String email) {
+        loginPage.userEmail.sendKeys(email);
+    }
+    @When("the user clicks on Reset password button")
+    public void the_user_clicks_on_Reset_password_button() {
+        loginPage.resetBUtton.click();
+    }
+    @Then("Verify that message contains {string}")
+    public void verify_that_message_contains(String Message) {
+        System.out.println(loginPage.resetMessage.getAttribute("value"));
+        Assert.assertTrue(loginPage.resetMessage.getAttribute("value").contains(Message));
+    }
+
+
+    @Then("verify that {string} is dissplayed on user input box")
+    public void verifyThatIsDissplayedOnUserInputBox(String message) {
+
+    }
+
+    @Given("the user enters {string} to password input box")
+    public void theUserEntersToPasswordInputBox(String password) {
+        loginPage.passwordInput.sendKeys(password);
+    }
+
+    @Then("verify that {string} is dissplayed on {string}")
+    public void verifyThatIsDissplayedOn(String message, String box) {
+        String actualMessage="";
+        if(box.equals("user input box")){
+            actualMessage=loginPage.usernameInput.getAttribute("validationMessage");
+            System.out.println(loginPage.usernameInput.getAttribute("validationMessage"));
+        }else if(box.equals("password input box")){
+            actualMessage=loginPage.passwordInput.getAttribute("validationMessage");
+            System.out.println(loginPage.passwordInput.getAttribute("validationMessage"));
+        }
+
+        Assert.assertEquals(message,actualMessage);
+    }
+
+    @Given("the user enters {string} to username input box")
+    public void theUserEntersToUsernameInputBox(String username) {
+        loginPage.usernameInput.sendKeys(username);
+    }
+
+    @Then("verify that username and password placeholders are dissplayed")
+    public void verifyThatUsernameAndPasswordPlaceholdersAreDissplayed() {
+        System.out.println("loginPage.usernameInput.getAttribute(\"id\") = " + loginPage.usernameInput.getAttribute("id"));
+        String expectedLoginPlaceholder="Username or email";
+        String actualLoginPlaceholder=loginPage.usernameInput.getAttribute("placeholder");
+        String expectedPasswordPlaceholder="Password";
+        String actualPasswordPlaceholder=loginPage.passwordInput.getAttribute("placeholder");
+        Assert.assertEquals(expectedLoginPlaceholder,actualLoginPlaceholder);
+        Assert.assertEquals(expectedPasswordPlaceholder,actualPasswordPlaceholder);
+
+    }
+
+    @Then("Veriy that username and password appears in a for of dots")
+    public void veriyThatUsernameAndPasswordAppearsInAForOfDots() {
+        String expectedUserText="text";
+        String expectedPasswordText="password";
+        String actualUserText=loginPage.usernameInput.getAttribute("type");
+        String actualPasswordText=loginPage.passwordInput.getAttribute("type");
+        Assert.assertEquals(expectedUserText,actualUserText);
+        Assert.assertEquals(expectedPasswordText,actualPasswordText);
+    }
 }

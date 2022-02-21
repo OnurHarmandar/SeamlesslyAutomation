@@ -31,7 +31,33 @@ Feature: Login Functionality
   Examples:
     | username    | password  |
     |Employeee    |Employee123|
-   # |Employee31   |anyPassword|
-   # |anyUsername  |anyPassword|
+    |Employee31   |anyPassword|
+    |anyUsername  |anyPassword|
 
+    Scenario: User can reset password
+      Given the user clicks on Forgot password? button
+      When the user enters "Mike@smith.com" email to user email input box
+      And the user clicks on Reset password button
+      Then Verify that message contains "A password reset message has been sent to the e-mail address of this account."
+
+
+
+Scenario: user should not leave user input box blank
+  Given the user enters "Employee123" to password input box
+  When click on login button
+  Then verify that "Please fill out this field." is dissplayed on "user input box"
+
+  Scenario: user should not leave user input box blank
+    Given the user enters "Employee31" to username input box
+    When click on login button
+    Then verify that "Please fill out this field." is dissplayed on "password input box"
+
+  Scenario: username and password placeholders are dissplayed
+    Then verify that username and password placeholders are dissplayed
+@wip
+    Scenario: username and password appears in a for of dots
+    When the user enters following credentials
+      |username|Employee31|
+      |password |Employee123|
+      Then Veriy that username and password appears in a for of dots
 
