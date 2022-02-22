@@ -33,6 +33,9 @@ public class LoginPage {
     @FindBy(className = "update")
     public WebElement resetMessage;
 
+    @FindBy(css = ".toggle-password")
+    public WebElement eyeIcon;
+
 
     public void login(){
         String userName= ConfigurationReader.get("username");

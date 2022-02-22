@@ -12,6 +12,7 @@ import net.seamlessly.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
+import java.util.List;
 import java.util.Map;
 
 public class LoginStepDefs {
@@ -23,7 +24,7 @@ public class LoginStepDefs {
     }
 
     @When("the user enters following credentials")
-    public void the_user_enters_following_credentials(Map<String,String> credentials) {
+    public void the_user_enters_following_credentials(Map<String, String> credentials) {
         loginPage.usernameInput.sendKeys(credentials.get("username"));
         loginPage.passwordInput.sendKeys(credentials.get("password"));
     }
@@ -68,7 +69,7 @@ public class LoginStepDefs {
     public void the_user_logged_in() {
         new LoginPage().login();
     }
-    @Given("the user clicks on Forgot password? button")
+    @Given("the user clicks on Forgot password button")
     public void theUserClicksOnForgotPasswordButton() {
         loginPage.forgotButton.click();
         BrowserUtils.waitFor(2);
@@ -82,11 +83,13 @@ public class LoginStepDefs {
     @When("the user clicks on Reset password button")
     public void the_user_clicks_on_Reset_password_button() {
         loginPage.resetBUtton.click();
+        BrowserUtils.waitFor(2);
     }
     @Then("Verify that message contains {string}")
     public void verify_that_message_contains(String Message) {
-        System.out.println(loginPage.resetMessage.getAttribute("value"));
-        Assert.assertTrue(loginPage.resetMessage.getAttribute("value").contains(Message));
+        String actualMessage=loginPage.resetMessage.getText();
+        System.out.println(loginPage.resetMessage.getText());
+        Assert.assertTrue(actualMessage.contains(Message));
     }
 
 
@@ -139,5 +142,18 @@ public class LoginStepDefs {
         String actualPasswordText=loginPage.passwordInput.getAttribute("type");
         Assert.assertEquals(expectedUserText,actualUserText);
         Assert.assertEquals(expectedPasswordText,actualPasswordText);
+    }
+
+    @And("click on eye icon")
+    public void clickOnEyeIcon() {
+        loginPage.eyeIcon.click();
+        BrowserUtils.waitFor(2);
+    }
+
+
+    @Then("Verify that user can see password text as {string}")
+    public void verifyThatUserCanSeePasswordTextAs(String expectedPassword) {
+        String actualPassword=loginPage.passwordInput.getAttribute("value");
+        Assert.assertEquals(expectedPassword,actualPassword);
     }
 }
